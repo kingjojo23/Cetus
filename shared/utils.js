@@ -22,6 +22,10 @@ const toHex = function(i) {
 // This could be improved, but as is all integers > 0x1000 are
 // displayed as hex
 const formatValue = function(value, memType) {
+    if (!isValidMemType(memType)) {
+            throw new Error("Invalid memory type " + memType + " in formatValue()");
+    }
+
     switch (memType) {
         case "i8":
         case "i16":
@@ -31,8 +35,10 @@ const formatValue = function(value, memType) {
         case "f32":
         case "f64":
             return value;
+        case "ascii":
+            return value;
         default:
-            throw new Error("Invalid memory type " + type + " in formatValue()");
+            return "#ERROR";
     }
 };
 
